@@ -26,3 +26,5 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+cle_fedora_github
+cle_fedora_github.pub
