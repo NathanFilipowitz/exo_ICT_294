@@ -1,11 +1,11 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+
+const product = ref("boots");
+const description = ref("ceci est ma description");
+</script>
 
 <template>
-  <div class="product-display">
-    <div class="product-container">
-      <div class="product-info">
-        <h1>Socks</h1>
-      </div>
-    </div>
-  </div>
+    <h1>{{ product }}</h1>
+    <p>{{ description }}</p>
 </template>
