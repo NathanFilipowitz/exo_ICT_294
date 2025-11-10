@@ -2,6 +2,8 @@
 import { ref, computed } from 'vue'
 import socksGreenImage from '@/assets/images/socks_green.jpeg'
 import socksBlueImage from '@/assets/images/socks_blue.jpeg'
+import ReviewForm from '@/components/ReviewForm.vue'
+import ReviewList from '@/components/ReviewList.vue'
 
 const props = defineProps({
   premium: {
@@ -9,6 +11,7 @@ const props = defineProps({
     required: true
   }
 })
+const reviews = ref([])
 
 const emit = defineEmits(['add-to-cart'])
 
@@ -48,9 +51,11 @@ const shipping = computed(() => {
 const addToCart = () => {
   emit('add-to-cart', variants.value[selectedVariant.value].id)
 }
-
 const updateVariant = (index) => {
   selectedVariant.value = index
+}
+const addReview = (review) => {
+  reviews.value.push(review)
 }
 </script>
 
@@ -86,5 +91,7 @@ const updateVariant = (index) => {
         </button>
       </div>
     </div>
+    <ReviewList v-if="reviews.length" :reviews="reviews"></ReviewList>
+    <ReviewForm @review-submitted="addReview"></ReviewForm>
   </div>
 </template>
