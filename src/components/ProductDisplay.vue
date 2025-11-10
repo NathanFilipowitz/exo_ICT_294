@@ -42,8 +42,14 @@ const shipping = computed(() => {
     return 2.99
   }
 })
+const emit = defineEmits(['add-to-cart','remove-from-cart']) //on définit les émits possibles
+const addToCart = () => {
+  emit('add-to-cart', variants.value[selectedVariant.value].id) //on émet l'événement précédemment défini
+}
+const removeFromCart = () => {
+  emit('remove-from-cart', variants.value[selectedVariant.value].id) //on émet l'événement précédemment défini
+}
 
-const addToCart = () => cart.value += 1
 
 const updateVariant = (index) => {
   selectedVariant.value = index
@@ -79,6 +85,14 @@ const updateVariant = (index) => {
           v-on:click="addToCart"
         >
           Add to cart
+        </button>
+        <button
+            class="button"
+            :class="{ disabledButton: !inStock }"
+            :disabled="!inStock"
+            v-on:click="removeFromCart"
+        >
+          Remove from cart
         </button>
       </div>
     </div>
