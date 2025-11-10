@@ -1,26 +1,39 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import socksGreenImage from './assets/images/socks_green.jpeg'
 import socksBlueImage from './assets/images/socks_blue.jpeg'
 
 const product = ref('Socks')
 const brand = ref('Vue Mastery')
+const title = computed(() => onSale.value ? brand.value + ' ' + product.value + ' On Sale !': brand.value + '' + product.value)
 
-const image = ref(socksGreenImage)
-const inStock = ref(false)
+const image = computed(() => {
+  return variants.value[selectedVariant.value].image
+})
+
+const inStock = computed(() => {
+  return variants.value[selectedVariant.value].quantity > 0
+})
   
 const details = ref(['50% cotton', '30% wool', '20% polyester'])
 
 const variants = ref([
-  { id: 2234, color: 'green', image: socksGreenImage },
-  { id: 2235, color: 'blue', image: socksBlueImage },
+  { id: 2234, color: 'green', image: socksGreenImage, quantity: 50 },
+  { id: 2235, color: 'blue', image: socksBlueImage, quantity: 0 },
 ])
+const selectedVariant = ref(0)
 
 const cart = ref(0)
 
 const addToCart = () => cart.value += 1
 
 const updateImage = (variantImage) => image.value = variantImage
+
+const updateVariant= (index) => {
+  selectedVariant.value = index
+}
+
+const onSale = ref(true)
 
 </script>
   
@@ -33,20 +46,19 @@ const updateImage = (variantImage) => image.value = variantImage
         <img v-bind:src="image">
       </div>
       <div class="product-info">
-        <h1>{{ product }}</h1>
+        <h1>{{title }}</h1>
         <p v-if="inStock">In Stock</p>
         <p v-else>Out of Stock</p>
         <ul>
           <li v-for="detail in details">{{ detail }}</li>
         </ul>
-        <div 
-          v-for="variant in variants" 
-          :key="variant.id"
-          @mouseover="updateImage(variant.image)"
-          class="color-circle"
-          :style="{ backgroundColor: variant.color }"
-        >
-        </div>
+        <div
+            v-for="(variant, index) in variants"
+            :key="variant.id"
+            @mouseover="updateVariant(index)"
+            class="color-circle"
+            :style="{ backgroundColor: variant.color }">
+      </div>
         <button
           class="button" 
           :class="{ disabledButton: !inStock }"
