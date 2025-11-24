@@ -43,7 +43,6 @@ const updateImage = (variantImage) => image.value = variantImage
           class="color-circle"
           :style="{ backgroundColor: variant.color }"
         >
-          {{ variant.color }}
         </div>
         <button class="button" :class="{ disabledButton: !inStock }" :disabled="!inStock" @click="addToCart">Add to cart</button>
       </div>
