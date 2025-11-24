@@ -19,6 +19,7 @@ const onSale = ref(true);
                 <h1>{{ product }}</h1>
             </div>
             <p v-if="inventory > 30">In Stock</p>
+<!--          utiliser v-if plutot que v-show car v-show ne fait que d'appliquer display=none (donc enft tjr présent sur le navigateur)-->
             <p v-else-if="inventory <= 30 && inventory > 0">
                 Almost sold out !
             </p>
