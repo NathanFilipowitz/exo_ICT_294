@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref } from "vue"; //définit l'élément comme réactif (ici, unidirectionnel)
 
 const product = ref("boots");
 const description = ref("ceci est ma description");
