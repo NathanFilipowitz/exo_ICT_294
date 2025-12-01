@@ -3,6 +3,9 @@ body {
   margin: 0px;
   font-family: tahoma;
   color: #282828;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
 }
 
 .button {
@@ -19,27 +22,8 @@ body {
     inset 0 0 0em 0.05em rgba(255, 255, 255, 0.12);
   text-align: center;
   cursor: pointer;
+  border: none;
 }
-
-.cart {
-  margin: 25px 100px;
-  float: right;
-  border: 1px solid #d8d8d8;
-  padding: 30px;
-  background-color: white;
-  -webkit-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
-  -moz-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
-  box-shadow: 2px 15px -12px rgba(0, 0, 0, 0.57);
-}
-
-.color-circle {
-  width: 50px;
-  height: 50px;
-  margin-top: 8px;
-  border: 2px solid #d8d8d8;
-  border-radius: 50%;
-}
-
 
 .disabledButton {
   background-color: #d8d8d8;
@@ -48,35 +32,42 @@ body {
 
 h1 {
   font-size: 50px;
+  grid-column: 1 / -1; /* Span across all columns */
+  text-align: center;
 }
 
-h3 {
-  font-size: 25px;
-}
-
-img {
-  border: 2px solid #d8d8d8;
-  width: 70%;
-  margin: 40px;
-  padding: 15px;
-  -webkit-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
-  -moz-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
-  box-shadow: 2px 15px -12px rgba(0, 0, 0, 0.57);
-}
-
-input {
+input,
+select,
+textarea {
   width: 100%;
-  height: 40px;
+  padding: 8px;
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+  box-sizing: border-box;
   margin-bottom: 20px;
+  height: 40px;
+}
+
+/* Specific styling for radio and checkboxes */
+input[type="radio"],
+input[type="checkbox"] {
+    width: auto;
+    height: auto;
+    margin-right: 8px;
 }
 
 label {
   font-size: 20px;
   margin-bottom: 5px;
+  display: flex;
+  align-items: center;
 }
 
-li {
-  font-size: 18px;
+/* Group for radio/checkbox options */
+.options-group {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Adds space between options */
 }
 
 .nav-bar {
@@ -88,60 +79,30 @@ li {
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.57);
 }
 
-.out-of-stock-img {
-  opacity: 0.5;
-}
-
-p {
-  font-size: 22px;
-}
-
-.product-display {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-}
-
-.product-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.product-image,
-.product-info {
-  width: 50%;
-}
-
-.review-form {
-  display: flex;
-  flex-direction: column;
-  width: 425px;
-  padding: 20px;
+.inscription-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 40px;
+  max-width: 800px;
+  padding: 40px;
   margin: 40px;
   border: 2px solid #d8d8d8;
   background-color: white;
   -webkit-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
   -moz-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
   box-shadow: 2px 15px -12px rgba(0, 0, 0, 0.57);
+  border-radius: 8px;
 }
 
-.review-container {
-  width: 425px;
-  padding: 20px;
-  background-color: white;
-  -webkit-box-shadow: 0px 2px 20px -12px rgba(0, 0, 0, 0.57);
-  -moz-box-shadow: 0px 2px 20px -12px rgba(0, 0, 0, 0.57);
-  box-shadow: 2px 20px -12px rgba(0, 0, 0, 0.57);
-  margin-left: 40px;
-  border: 2px solid #d8d8d8;
+/* Make elements span both columns */
+.inscription-form > h1,
+.inscription-form > textarea,
+.inscription-form > .button {
+    grid-column: 1 / -1;
 }
 
-.review-container li {
-  margin-bottom: 30px;
-}
-
-.review-form .button {
+/* Center the submit button */
+.inscription-form .button {
   display: block;
   margin: 30px auto;
 }
@@ -154,8 +115,8 @@ select {
 }
 
 textarea {
-  width: 95%;
-  height: 70px;
+  width: 100%;
+  height: 90px;
   padding: 10px;
   font-size: 20px;
   margin-bottom: 20px;
@@ -166,17 +127,45 @@ ul {
 }
 
 @media only screen and (max-width: 600px) {
-  .container {
-    flex-direction: column;
-  }
-
-  .product-image,
-  .product-info {
-    margin-left: 10px;
-    width: 100%;
-  }
-
-  .review-form {
+  .inscription-form {
+    grid-template-columns: 1fr;
     width: 90%;
+    padding: 20px;
+    margin: 20px;
   }
+
+  h1 {
+    font-size: 36px;
+  }
+}
+
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #04AA6D;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #04AA6D;
+  cursor: pointer;
 }
